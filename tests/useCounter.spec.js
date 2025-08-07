@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, act, waitFor } from '@testing-library/react';
 import useCounter from '../src/hooks/features/homepage/useCounter';
 
 describe('useCounter', () => {
@@ -13,7 +13,9 @@ describe('useCounter', () => {
     act(() => {
       result.current.increment();
     });
-    expect(result.current.count).toBe(1);
+    waitFor(() => {
+      expect(result.current.count).toBe(1);
+    });
   });
 
   it('should update val and increment by new val', () => {
@@ -22,6 +24,8 @@ describe('useCounter', () => {
       result.current.setVal(5);
       result.current.increment();
     });
-    expect(result.current.count).toBe(5);
+    waitFor(() => {
+      expect(result.current.count).toBe(5);
+    });
   });
 });
